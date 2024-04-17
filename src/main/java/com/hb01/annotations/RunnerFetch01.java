@@ -67,8 +67,45 @@ public class RunnerFetch01 {
         System.out.println(uniqueResult2.getName());
         //uniqueResul2 den sonra . ile hangi alanı yazdıracağımızı seçebiliriz.
 
+
+
+
+        //HQL-> grade değeri 70 olan öğrencileri getir...
+        System.out.println("---- HQL ile grade=70 sonucunu getir  ----------------");
+
+        String hqlQuery3 = "SELECT s.id,s.name FROM Student01 s WHERE s.grade=70";
+        List<Object[]> resultList3 = session.createQuery(hqlQuery3).getResultList();
+        for (Object[] objects : resultList3){
+            System.out.println(Arrays.toString(objects));
+        }
+
+        //id'ye göre azalan sıralı listeyi HQL ile yapalım
+        System.out.println("---- HQL ile grade=70 sonucunu getir  ----------------");
+        String hqlQuery4 = "FROM Student01 s ORDER BY s.id DESC";
+        List<Student01> resultList4 = session.createQuery(hqlQuery4, Student01.class).getResultList();
+        for(Student01 student01 : resultList4){
+            System.out.println(student01);
+        }
+
+
+
+
         tx.commit();
         session.close();
         sf.close();
+
+
+        /*
+         // !!! get - SQL - HQL Hangisini tercih etmem gerekir ?
+        /*
+                1. get
+                2. HQL
+                3. SQL
+
+                        *   Native SQL hizli olsada eksi yonleri :
+                1) bazi DB'lerde sql syntax'in farkliliklar olabiliyor, Native SQL burada sorun olabilir
+                2) String yapilarin hataya acik olmasi
+         */
+
     }
 }
